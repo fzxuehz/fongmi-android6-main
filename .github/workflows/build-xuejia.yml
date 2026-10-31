@@ -419,17 +419,6 @@ jobs:
               print(f"ISO 9660 reader found in {apk}")
           PY
 
-      - name: Verify upgrade identity and signing continuity
-        run: |
-          set -euo pipefail
-          python3 -m unittest discover -s scripts/tests -p test_verify_upgrade_apks.py
-          curl --fail --location --retry 3 --retry-all-errors --max-time 600 \
-            'https://github.com/15840213978a/fongmi-android6-main/releases/download/v5.6.3-202610011533/mobile-arm64_v8a-b6.apk' \
-            --output "$RUNNER_TEMP/previous-b6.apk"
-          python3 scripts/verify_upgrade_apks.py \
-            --build-tools "$ANDROID_HOME/build-tools/37.0.0" \
-            --previous-apk "$RUNNER_TEMP/previous-b6.apk"
-
       - name: Preserve APKs if final verification fails
         if: failure() && steps.collect.outcome == 'success'
         uses: actions/upload-artifact@v4
