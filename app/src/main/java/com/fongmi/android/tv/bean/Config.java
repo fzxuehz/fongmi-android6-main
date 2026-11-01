@@ -92,7 +92,18 @@ public class Config {
 
     public static Config vod() {
         Config item = AppDatabase.get().getConfigDao().findOne(0);
-        return item == null ? create(0, "https://raw.githubusercontent.com/maoystv/6/main/000.json") : item;
+        return item == null ? createDefaults() : item;
+    }
+
+    private static Config createDefaults() {
+        Config def = create(0, "https://www.252035.xyz/z/FongMi.json", "真心·国内外通用");
+        def.setTime(1);
+        def.save();
+        create(0, "https://raw.githubusercontent.com/maoystv/6/main/000.json", "分享·海外线路");
+        create(0, "http://home.jundie.top:81/top98.json", "俊佬·国内外通用");
+        create(0, "http://www.饭太硬.net/tv", "饭太硬·国内线路");
+        create(0, "http://肥猫.net", "肥猫·国内线路");
+        return AppDatabase.get().getConfigDao().findOne(0);
     }
 
     public static Config live() {
