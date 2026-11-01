@@ -100,21 +100,36 @@ public class Config {
 
     private static Config seedDefaults() {
         if (AppDatabase.get().getConfigDao().find("https://www.252035.xyz/z/FongMi.json", 0) == null) {
-            Config def = create(0, "https://www.252035.xyz/z/FongMi.json", "真心·国内外通用");
+            Config def = create(0, "https://www.252035.xyz/z/FongMi.json", "真心·在线");
             def.setTime(1);
             def.save();
         }
+        if (AppDatabase.get().getConfigDao().find("http://home.jundie.top:81/top98.json", 0) == null)
+            create(0, "http://home.jundie.top:81/top98.json", "俊佬·在线");
+        if (AppDatabase.get().getConfigDao().find("assets://xuejia/zhenxin.json", 0) == null)
+            create(0, "assets://xuejia/zhenxin.json", "真心·内置离线");
+        if (AppDatabase.get().getConfigDao().find("assets://xuejia/junlao.json", 0) == null)
+            create(0, "assets://xuejia/junlao.json", "俊佬·内置离线");
         if (AppDatabase.get().getConfigDao().find("assets://xuejia/fenxiang.json", 0) == null)
             create(0, "assets://xuejia/fenxiang.json", "分享·内置离线");
-        if (AppDatabase.get().getConfigDao().find("http://home.jundie.top:81/top98.json", 0) == null)
-            create(0, "http://home.jundie.top:81/top98.json", "俊佬·国内外通用");
+        if (AppDatabase.get().getConfigDao().find("assets://xuejia/xiangyaqing.json", 0) == null)
+            create(0, "assets://xuejia/xiangyaqing.json", "香雅情·内置离线");
+        if (AppDatabase.get().getConfigDao().find("assets://xuejia/dxawi.json", 0) == null)
+            create(0, "assets://xuejia/dxawi.json", "dxawi·内置离线");
+        if (AppDatabase.get().getConfigDao().find("assets://xuejia/gaotianliuyun.json", 0) == null)
+            create(0, "assets://xuejia/gaotianliuyun.json", "高天流云·内置离线");
         if (AppDatabase.get().getConfigDao().find("http://www.饭太硬.net/tv", 0) == null)
             create(0, "http://www.饭太硬.net/tv", "饭太硬·国内线路");
         if (AppDatabase.get().getConfigDao().find("http://肥猫.net", 0) == null)
             create(0, "http://肥猫.net", "肥猫·国内线路");
-        ensure(1, "https://www.252035.xyz/z/FongMi.json", "真心·国内外通用");
+        ensure(1, "https://www.252035.xyz/z/FongMi.json", "真心·在线");
+        ensure(1, "http://home.jundie.top:81/top98.json", "俊佬·在线");
+        ensure(1, "assets://xuejia/zhenxin.json", "真心·内置离线");
+        ensure(1, "assets://xuejia/junlao.json", "俊佬·内置离线");
         ensure(1, "assets://xuejia/fenxiang.json", "分享·内置离线");
-        ensure(1, "http://home.jundie.top:81/top98.json", "俊佬·国内外通用");
+        ensure(1, "assets://xuejia/xiangyaqing.json", "香雅情·内置离线");
+        ensure(1, "assets://xuejia/dxawi.json", "dxawi·内置离线");
+        ensure(1, "assets://xuejia/gaotianliuyun.json", "高天流云·内置离线");
         ensure(1, "http://www.饭太硬.net/tv", "饭太硬·国内线路");
         ensure(1, "http://肥猫.net", "肥猫·国内线路");
         return AppDatabase.get().getConfigDao().findOne(0);
