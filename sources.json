@@ -1,0 +1,13 @@
+{
+  "updated": "2026-11-01",
+  "note": "薛家影视推送管理台的影视源候选清单，由 AI 助手维护，需要更新找助手即可",
+  "sources": [
+    { "name": "分享", "url": "https://raw.githubusercontent.com/maoystv/6/main/000.json", "desc": "预置源·197站点·日更" },
+    { "name": "香雅情", "url": "https://raw.githubusercontent.com/xyq254245/xyqonlinerule/main/XYQTVBox.json", "desc": "老牌经典" },
+    { "name": "真心", "url": "https://www.252035.xyz/z/FongMi.json", "desc": "FongMi适配版" },
+    { "name": "dxawi", "url": "https://dxawi.github.io/0/0.json", "desc": "轻量稳定" },
+    { "name": "高天流云", "url": "https://raw.githubusercontent.com/gaotianliuyun/gao/master/js.json", "desc": "经典老源" },
+    { "name": "饭太硬", "url": "http://www.fantaiying.top/tv", "desc": "知名源·需实测" },
+    { "name": "肥猫", "url": "http://肥猫.net/", "desc": "知名源·需实测" }
+  ]
+}
