@@ -393,7 +393,30 @@ public class HomeActivity extends BaseActivity implements CustomTitleView.Listen
             case PUSH:
                 VideoActivity.push(this, event.text());
                 break;
+            case SETTING:
+                onSetting(event);
+                break;
         }
+    }
+
+    private void onSetting(ServerEvent event) {
+        if (TextUtils.isEmpty(event.text())) return;
+        Config config = TextUtils.isEmpty(event.name()) ? Config.find(event.text(), 0) : Config.find(event.text(), event.name(), 0);
+        VodConfig.load(config, getPushCallback());
+    }
+
+    private Callback getPushCallback() {
+        return new Callback() {
+            @Override
+            public void success() {
+                Notify.show("链接已更新");
+            }
+
+            @Override
+            public void error(String msg) {
+                Notify.show("更新失败: ".concat(msg));
+            }
+        };
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
