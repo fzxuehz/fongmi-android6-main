@@ -99,7 +99,7 @@ public class Config {
         Config def = create(0, "https://www.252035.xyz/z/FongMi.json", "真心·国内外通用");
         def.setTime(1);
         def.save();
-        create(0, "https://raw.githubusercontent.com/maoystv/6/main/000.json", "分享·海外线路");
+        create(0, "assets://xuejia/fenxiang.json", "分享·内置离线");
         create(0, "http://home.jundie.top:81/top98.json", "俊佬·国内外通用");
         create(0, "http://www.饭太硬.net/tv", "饭太硬·国内线路");
         create(0, "http://肥猫.net", "肥猫·国内线路");
