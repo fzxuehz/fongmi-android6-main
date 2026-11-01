@@ -1,13 +1,13 @@
 {
   "updated": "2026-11-01",
-  "note": "薛家影视推送管理台的影视源候选清单，由 AI 助手维护，需要更新找助手即可",
+  "note": "薛家影视推送管理台的影视源候选清单，由 AI 助手维护。zone: github=海外源(国内不稳,建议转存本地), cn=国内直连, both=国内外通用。id 用于转存本地时的文件名。",
   "sources": [
-    { "name": "真心", "url": "https://www.252035.xyz/z/FongMi.json", "desc": "国内外通用·推荐" },
-    { "name": "俊佬", "url": "http://home.jundie.top:81/top98.json", "desc": "国内外通用" },
-    { "name": "分享", "url": "https://raw.githubusercontent.com/maoystv/6/main/000.json", "desc": "海外线路·国内不稳" },
-    { "name": "香雅情", "url": "https://raw.githubusercontent.com/xyq254245/xyqonlinerule/main/XYQTVBox.json", "desc": "海外线路·国内不稳" },
-    { "name": "dxawi", "url": "https://dxawi.github.io/0/0.json", "desc": "海外线路" },
-    { "name": "饭太硬", "url": "http://www.饭太硬.net/tv", "desc": "国内线路·回国首选" },
-    { "name": "肥猫", "url": "http://肥猫.net/", "desc": "国内线路·回国备选" }
+    { "name": "真心", "id": "zhenxin", "url": "https://www.252035.xyz/z/FongMi.json", "desc": "国内外通用·推荐", "zone": "both" },
+    { "name": "俊佬", "id": "junlao", "url": "http://home.jundie.top:81/top98.json", "desc": "国内外通用", "zone": "both" },
+    { "name": "分享", "id": "fenxiang", "url": "https://raw.githubusercontent.com/maoystv/6/main/000.json", "desc": "海外源·已内置APK离线版", "zone": "github", "builtin": true },
+    { "name": "香雅情", "id": "xiangyaqing", "url": "https://raw.githubusercontent.com/xyq254245/xyqonlinerule/main/XYQTVBox.json", "desc": "海外源·国内不稳", "zone": "github" },
+    { "name": "dxawi", "id": "dxawi", "url": "https://dxawi.github.io/0/0.json", "desc": "海外源", "zone": "github" },
+    { "name": "饭太硬", "id": "fantaiying", "url": "http://www.饭太硬.net/tv", "desc": "国内线路·回国首选", "zone": "cn" },
+    { "name": "肥猫", "id": "feimao", "url": "http://肥猫.net/", "desc": "国内线路·回国备选", "zone": "cn" }
   ]
 }
