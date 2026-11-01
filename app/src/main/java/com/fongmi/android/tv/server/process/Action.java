@@ -23,6 +23,7 @@ import com.fongmi.android.tv.utils.Notify;
 import com.github.catvod.net.OkHttp;
 import com.github.catvod.utils.Path;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -54,6 +55,7 @@ public class Action implements Process {
             case "sync" -> onSync(params);
             case "search" -> onSearch(params);
             case "setting" -> onSetting(params);
+            case "delconfig" -> onDelConfig(params);
             case "refresh" -> onRefresh(params);
             case "control" -> onControl(params);
             case "danmaku" -> onDanmaku(params);
@@ -85,6 +87,21 @@ public class Action implements Process {
         String name = params.get("name");
         if (TextUtils.isEmpty(text)) return;
         ServerEvent.setting(text, name);
+    }
+
+    private void onDelConfig(Map<String, String> params) {
+        String urls = params.get("urls");
+        if (TextUtils.isEmpty(urls)) return;
+        for (String url : urls.split(",")) {
+            if (TextUtils.isEmpty(url) || url.equals(VodConfig.getUrl())) continue;
+            App.post(() -> {
+                Config.delete(url, 0);
+                Config.delete(url, 1);
+                if (url.startsWith("file://")) {
+                    try { new File(Path.root(), url.replace("file://", "")).delete(); } catch (Exception ignored) { }
+                }
+            });
+        }
     }
 
     private void onRefresh(Map<String, String> params) {
