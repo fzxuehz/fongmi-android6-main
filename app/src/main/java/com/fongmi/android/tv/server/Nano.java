@@ -60,6 +60,12 @@ public class Nano extends NanoHTTPD {
 
     @Override
     public Response serve(IHTTPSession session) {
+        Response response = handle(session);
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        return response;
+    }
+
+    private Response handle(IHTTPSession session) {
         String url = session.getUri().trim();
         Map<String, String> files = new HashMap<>();
         if (session.getMethod() == Method.POST) parse(session, files);
