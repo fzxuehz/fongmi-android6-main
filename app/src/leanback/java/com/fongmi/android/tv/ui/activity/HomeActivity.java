@@ -402,6 +402,7 @@ public class HomeActivity extends BaseActivity implements CustomTitleView.Listen
     private void onSetting(ServerEvent event) {
         if (TextUtils.isEmpty(event.text())) return;
         Config config = TextUtils.isEmpty(event.name()) ? Config.find(event.text(), 0) : Config.find(event.text(), event.name(), 0);
+        Config.find(config, 1);
         VodConfig.load(config, getPushCallback());
     }
 
