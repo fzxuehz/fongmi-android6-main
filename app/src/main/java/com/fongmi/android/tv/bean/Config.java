@@ -90,19 +90,28 @@ public class Config {
         AppDatabase.get().getConfigDao().delete(url, type);
     }
 
+    private static boolean seeded = false;
+
     public static Config vod() {
+        if (!seeded) { seeded = true; seedDefaults(); }
         Config item = AppDatabase.get().getConfigDao().findOne(0);
-        return item == null ? createDefaults() : item;
+        return item == null ? seedDefaults() : item;
     }
 
-    private static Config createDefaults() {
-        Config def = create(0, "https://www.252035.xyz/z/FongMi.json", "真心·国内外通用");
-        def.setTime(1);
-        def.save();
-        create(0, "assets://xuejia/fenxiang.json", "分享·内置离线");
-        create(0, "http://home.jundie.top:81/top98.json", "俊佬·国内外通用");
-        create(0, "http://www.饭太硬.net/tv", "饭太硬·国内线路");
-        create(0, "http://肥猫.net", "肥猫·国内线路");
+    private static Config seedDefaults() {
+        if (AppDatabase.get().getConfigDao().find("https://www.252035.xyz/z/FongMi.json", 0) == null) {
+            Config def = create(0, "https://www.252035.xyz/z/FongMi.json", "真心·国内外通用");
+            def.setTime(1);
+            def.save();
+        }
+        if (AppDatabase.get().getConfigDao().find("assets://xuejia/fenxiang.json", 0) == null)
+            create(0, "assets://xuejia/fenxiang.json", "分享·内置离线");
+        if (AppDatabase.get().getConfigDao().find("http://home.jundie.top:81/top98.json", 0) == null)
+            create(0, "http://home.jundie.top:81/top98.json", "俊佬·国内外通用");
+        if (AppDatabase.get().getConfigDao().find("http://www.饭太硬.net/tv", 0) == null)
+            create(0, "http://www.饭太硬.net/tv", "饭太硬·国内线路");
+        if (AppDatabase.get().getConfigDao().find("http://肥猫.net", 0) == null)
+            create(0, "http://肥猫.net", "肥猫·国内线路");
         return AppDatabase.get().getConfigDao().findOne(0);
     }
 
