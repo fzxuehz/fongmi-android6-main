@@ -122,21 +122,7 @@ public class Config {
             create(0, "http://www.饭太硬.net/tv", "饭太硬·国内线路");
         if (AppDatabase.get().getConfigDao().find("http://肥猫.net", 0) == null)
             create(0, "http://肥猫.net", "肥猫·国内线路");
-        ensure(1, "https://www.252035.xyz/z/FongMi.json", "真心·在线");
-        ensure(1, "http://home.jundie.top:81/top98.json", "俊佬·在线");
-        ensure(1, "assets://xuejia/zhenxin.json", "真心·内置离线");
-        ensure(1, "assets://xuejia/junlao.json", "俊佬·内置离线");
-        ensure(1, "assets://xuejia/fenxiang.json", "分享·内置离线");
-        ensure(1, "assets://xuejia/xiangyaqing.json", "香雅情·内置离线");
-        ensure(1, "assets://xuejia/dxawi.json", "dxawi·内置离线");
-        ensure(1, "assets://xuejia/gaotianliuyun.json", "高天流云·内置离线");
-        ensure(1, "http://www.饭太硬.net/tv", "饭太硬·国内线路");
-        ensure(1, "http://肥猫.net", "肥猫·国内线路");
         return AppDatabase.get().getConfigDao().findOne(0);
-    }
-
-    private static void ensure(int type, String url, String name) {
-        if (AppDatabase.get().getConfigDao().find(url, type) == null) create(type, url, name);
     }
 
     public static Config live() {
