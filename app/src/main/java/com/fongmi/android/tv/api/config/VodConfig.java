@@ -198,6 +198,12 @@ public class VodConfig extends BaseConfig {
 
     private void initSite(Config config, JsonObject object) {
         String spider = Json.safeString(object, "spider");
+        if (!spider.isEmpty()) {
+            int pos = spider.indexOf(";md5;");
+            String head = pos >= 0 ? spider.substring(0, pos) : spider;
+            String tail = pos >= 0 ? spider.substring(pos) : "";
+            if (!head.startsWith("http") && !head.startsWith("file") && !head.startsWith("assets")) spider = UrlUtil.convert(UrlUtil.resolve(config.getUrl(), head)) + tail;
+        }
         BaseLoader.get().parseJar(spider, true);
         setSites(Json.safeListElement(object, "sites").stream().map(e -> Site.objectFrom(e, spider)).distinct().collect(Collectors.toCollection(ArrayList::new)));
         Map<String, Site> items = Site.findAll().stream().collect(Collectors.toMap(Site::getKey, Function.identity()));
