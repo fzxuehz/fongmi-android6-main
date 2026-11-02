@@ -183,11 +183,13 @@ public class SettingActivity extends BaseActivity implements ConfigListener, Sit
     }
 
     private void onVod(View view) {
-        ConfigDialog.create().vod().show(this);
+        if (Config.getAll(0).isEmpty()) ConfigDialog.create().vod().show(this);
+        else HistoryDialog.create().vod().show(this);
     }
 
     private void onLive(View view) {
-        ConfigDialog.create().live().show(this);
+        if (Config.getAll(1).isEmpty()) ConfigDialog.create().live().show(this);
+        else HistoryDialog.create().live().show(this);
     }
 
     private void onWall(View view) {
