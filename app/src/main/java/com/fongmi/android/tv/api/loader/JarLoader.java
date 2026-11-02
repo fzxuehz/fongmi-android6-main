@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.fongmi.android.tv.App;
 import com.fongmi.android.tv.utils.Download;
+import com.fongmi.android.tv.utils.Notify;
 import com.fongmi.android.tv.utils.UrlUtil;
 import com.github.catvod.crawler.Spider;
 import com.github.catvod.crawler.SpiderNull;
@@ -53,7 +54,8 @@ public class JarLoader {
 
     private void load(String key, File file) {
         if (Thread.interrupted()) return;
-        if (!Path.exists(file) || !file.setReadOnly()) return;
+        if (!Path.exists(file)) { App.post(() -> Notify.show("爬虫包下载失败，该源的爬虫站点将无法使用")); return; }
+        if (!file.setReadOnly()) return;
         String cachePath = Path.jar().getAbsolutePath();
         DexClassLoader loader = new DexClassLoader(file.getAbsolutePath(), cachePath, cachePath, App.get().getClassLoader());
         invokeInit(loader);
