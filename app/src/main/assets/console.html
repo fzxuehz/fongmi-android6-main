@@ -96,7 +96,7 @@ td.u{color:var(--sub);font-size:12px;max-width:220px;overflow:hidden;text-overfl
     <button id="btnQr">识别二维码</button>
   </div>
   <div class="tip">「识别二维码」：选一张影视源分享的二维码图片（手机截图/照片），自动解出链接填入。
-  <div class="tip">「✅ 有效」＝完整验证通过；「🟡 可达」＝有响应但跨域无法读取内容（通常能用）；「❌ 失效」＝连不上。<span style="color:#e8b06f">海外</span>＝依赖 GitHub，国内网络不稳，建议转存本地；<span style="color:#6fd69a">国内</span>/<span style="color:#7fc2e8">通用</span>＝直连稳定，推荐在线推送保持最新。手动添加的源只保存在本机浏览器。</div>
+  <div class="tip">「✅ 可播放验证」＝已实测站内搜索接口能返回影片列表（最真实的可用性）；「✅ 配置有效」＝配置可读、站点为爬虫型（需电视实测）；「🇨🇳 国内专用线」＝只在大陆网络可用，海外检测失败属正常——<b>请在国内设备（手机/电脑）上打开本页检测</b>，结果才是真实可用性；「❌ 失效」＝真不可用。<span style="color:#6fd69a">国内/通用</span>源推荐给国内电视；<span style="color:#e8b06f">海外</span>源仅适合海外设备或转存本地模式。</div>
 </div>
 
 <div class="card">
@@ -109,8 +109,12 @@ td.u{color:var(--sub);font-size:12px;max-width:220px;overflow:hidden;text-overfl
     </div>
   </div>
   <div class="row">
-    <button id="btnPush" class="acc">推送勾选的源 → 勾选的设备</button>
+    <button id="btnPush" class="acc">推送勾选的源 → 勾选的设备（局域网）</button>
     <span style="font-size:12px;color:var(--sub)" id="pushHint">先在①②完成勾选</span>
+  </div>
+  <div class="row">
+    <button id="btnCloud">☁️ 云端投递给电视（远程/国外用）</button>
+    <span style="font-size:12px;color:var(--sub)">国外拉好源检测后点它 → 国内电视打开APP自动查收并切换</span>
   </div>
   <div id="pushLog"></div>
   <div class="tip"><b>在线链接</b>：电视直接连源地址（内容随时最新，需要网络稳定）；<b>转存本地</b>：先把源内容上传到电视本地存储（/sdcard/xuejia/）再切换 —— 断网、回国后依然能用，内容为推送时的快照。推送的线路会同时出现在电视的「设置→点播」和「设置→直播」列表中（含直播数据即可直接看直播）。电视收到并加载成功后会弹「链接已更新」。</div>
@@ -10343,14 +10347,25 @@ function renderDevices(){
 $('btnScan').onclick=scan;
 
 /* ---------- 2. 影视源清单 ---------- */
+var SRC_URLS=[
+  'https://raw.githubusercontent.com/fzxuehz/fongmi-android6-main/main/sources.json',
+  'https://ghproxy.net/https://raw.githubusercontent.com/fzxuehz/fongmi-android6-main/main/sources.json',
+  'https://ghfast.top/https://raw.githubusercontent.com/fzxuehz/fongmi-android6-main/main/sources.json'
+];
 async function fetchList(){
   $('btnFetch').disabled=true; $('btnFetch').textContent='拉取中…';
-  try{
-    var r=await fetch('https://raw.githubusercontent.com/fzxuehz/fongmi-android6-main/main/sources.json?t='+Date.now());
-    var j=await r.json();
+  var j=null;
+  for(var i=0;i<SRC_URLS.length;i++){
+    try{
+      var r=await fetch(SRC_URLS[i]+'?t='+Date.now());
+      if(r.ok){ j=await r.json(); if(j&&j.sources&&j.sources.length) break; }
+    }catch(e){}
+  }
+  if(!j||!j.sources){ alert('拉取清单失败（检查网络）'); }
+  else{
     sources=(j.sources||[]).map(function(s){return{name:s.name,id:s.id||('src'+Math.floor(Math.random()*10000)),url:s.url,desc:s.desc||'',zone:s.zone||'',builtin:!!s.builtin,_sel:false,_lv:-1,_msg:''}});
     renderSources();
-  }catch(e){ alert('拉取清单失败（检查网络或让助手更新仓库清单）'); }
+  }
   $('btnFetch').disabled=false; $('btnFetch').textContent='拉取最新源清单';
 }
 async function checkOne(url){
@@ -10361,17 +10376,48 @@ async function checkOne(url){
     clearTimeout(timer);
     if(!r.ok)return{lv:0,msg:'❌ 失效（HTTP '+r.status+'）'};
     var t=await r.text();
-    if(t.indexOf('"sites"')>=0||t.indexOf('spider')>=0)return{lv:2,msg:'✅ 有效（内容验证通过）'};
-    if(t.length>50)return{lv:1,msg:'🟡 可访问（内容格式未确认）'};
-    return{lv:0,msg:'❌ 失效（响应为空）'};
+    if(t.indexOf('"sites"')<0&&t.indexOf('spider')<0)return{lv:0,msg:'❌ 失效（非影视源）'};
+    var deep=await deepCheck(t);
+    if(deep.lv===2)return{lv:2,msg:'✅ 可播放验证通过（'+deep.ok+'/'+deep.n+' 站搜索有结果）'};
+    if(deep.msg)return{lv:2,msg:'✅ 配置有效·'+deep.msg};
+    return{lv:1,msg:'🟡 配置可读（站点接口待实测）'};
   }catch(e){
     clearTimeout(timer);
     try{
       var c2=new AbortController(); var t2=setTimeout(function(){c2.abort()},7000);
       await fetch(url,{mode:'no-cors',signal:c2.signal}); clearTimeout(t2);
-      return{lv:1,msg:'🟡 可达（跨域受限，内容未验证）'};
-    }catch(e2){ return{lv:0,msg:'❌ 无法访问'} }
+      return{lv:1,msg:'🟡 可达（跨域受限，请在电视上实测）'};
+    }catch(e2){ return zoneFail(url); }
   }
+}
+function zoneFail(url){
+  var s=sources.concat(custom).filter(function(x){return x.url===url})[0];
+  if(s&&s.zone==='cn')return{lv:-2,msg:'🇨🇳 国内专用线（海外无法验证，请在国内设备检测）'};
+  return{lv:0,msg:'❌ 无法访问'};
+}
+async function deepCheck(cfgText){
+  try{
+    var apis=[];
+    var re=/\{[^{}]*?"api"\s*:\s*"(https?:\/\/[^"]+)"[^{}]*?\}/g;
+    var mm;
+    while((mm=re.exec(cfgText))&&apis.length<4){
+      if(mm[0].indexOf('csp_')>=0)continue;
+      apis.push(mm[1]);
+    }
+    if(!apis.length)return{lv:1,msg:'含爬虫站点（需电视实测）'};
+    var ok=0;
+    for(var i=0;i<apis.length;i++){
+      try{
+        var u=apis[i]+(apis[i].indexOf('?')>=0?'&':'?')+'ac=videolist&wd='+encodeURIComponent('战');
+        var c=new AbortController(); var ti=setTimeout(function(){c.abort()},7000);
+        var rr=await fetch(u,{signal:c.signal,cache:'no-store'});
+        clearTimeout(ti);
+        if(rr.ok){ var tt=await rr.text(); if(tt.indexOf('vod')>=0||tt.indexOf('video')>=0||tt.indexOf('list')>=0){ok++;} }
+      }catch(e){}
+    }
+    if(ok>0)return{lv:2,ok:ok,n:apis.length};
+    return{lv:1,msg:'站点接口探测未通过（配置本身可读）'};
+  }catch(e){ return{lv:1,msg:'含爬虫站点'} }
 }
 async function checkAll(){
   if(!sources.length){alert('先拉取源清单');return}
@@ -10554,6 +10600,36 @@ try{
   }
 }catch(e){}
 fetchList();
+
+/* ---------- 4. 云端投递（远程/国外用） ---------- */
+$('btnCloud').onclick = async function(){
+  var srcs = sources.concat(custom).filter(function(s){return s._sel && s._lv!==0});
+  if(!srcs.length){ alert('请先在②里勾选至少一个检测有效的影视源'); return; }
+  var tok = localStorage.getItem('xj_gh_token') || '';
+  if(!tok){
+    tok = prompt('首次使用需填一次 GitHub 令牌（只保存在本机浏览器）\n创建地址（网页打开）：https://github.com/settings/tokens/new?scopes=repo\n把 ghp_ 开头的令牌粘贴到这里');
+    if(!tok) return;
+    tok = tok.trim(); localStorage.setItem('xj_gh_token', tok);
+  }
+  var s = srcs[0];
+  var api = 'https://api.github.com/repos/fzxuehz/fongmi-android6-main/contents/push-queue.json';
+  var sha = null;
+  try{ var g = await fetch(api, {headers:{Authorization:'Bearer '+tok, Accept:'application/vnd.github+json'}}); if(g.ok){ sha = (await g.json()).sha; } }catch(e){}
+  var content = JSON.stringify({time:Date.now(), name:s.name, url:s.url}, null, 2);
+  var body = {message:'remote push: '+s.name, content: btoa(unescape(encodeURIComponent(content))), branch:'main'};
+  if(sha) body.sha = sha;
+  try{
+    var r = await fetch(api, {method:'PUT', headers:{Authorization:'Bearer '+tok, Accept:'application/vnd.github+json', 'Content-Type':'application/json'}, body: JSON.stringify(body)});
+    if(r.ok){
+      alert('✅ 已投递到云端信箱：'+s.name+'\n\n国内电视下次打开「薛家影视」约 10 秒内会自动接收并切换，电视上会弹「远程推送已更新」。\n如需立即生效：让家人把电视上的薛家影视关掉重开一次即可。');
+      logRow('[云端投递] '+s.name, '✅ 已投递，等待电视查收', 'ok');
+    } else {
+      var t = await r.text();
+      if(r.status===401){ localStorage.removeItem('xj_gh_token'); }
+      alert('投递失败 HTTP '+r.status+'\n'+t.substring(0,300));
+    }
+  }catch(e){ alert('投递失败：'+e.message); }
+};
 </script>
 </body>
 </html>
