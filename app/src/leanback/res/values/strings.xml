@@ -19,4 +19,4 @@
   <string name="dialog_action_clear_all">取消全选</string>
   <string name="dialog_action_grid">切换为网格</string>
   <string name="dialog_action_list">切换为列表</string>
-    <string name="setting_cloud">云端源库 · 抓取检测</string>`n    <string name="setting_scan">手机扫码推送源</string>`n</resources>
+    <string name="setting_cloud">云端源库 · 抓取检测</string>`n    <string name="setting_scan">手机扫码推送源</string>`n    <string name="setting_live_cloud">云端直播源库</string>`n</resources>
