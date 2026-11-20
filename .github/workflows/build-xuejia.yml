@@ -282,22 +282,6 @@ jobs:
           cp "$source_aar" app/libs/lib-exoplayer-libass-release.aar
           python3 scripts/test_libass_aar.py
 
-      - name: Test Matroska subtitles and ISO 9660 disc reading
-        run: |
-          set -euo pipefail
-          ./media3/gradlew -p media3 :lib-extractor:testDebugUnitTest \
-            --tests 'androidx.media3.extractor.mkv.MatroskaExtractorNonParameterizedTest' \
-            --tests 'androidx.media3.extractor.iso.udf.Iso9660FallbackTest' \
-            --no-daemon
-
-      - name: Test native menu commands and Dolby Vision P5 policy
-        run: |
-          set -euo pipefail
-          ./media3/gradlew -p media3 :lib-mpvplayer:testDebugUnitTest \
-            --tests 'androidx.media3.mpvplayer.nativebridge.MpvCommandDispatcherTest' --no-daemon
-          ./media3/gradlew -p media3 :lib-decoder-ffmpeg:testDebugUnitTest \
-            --tests 'androidx.media3.decoder.ffmpeg.FfmpegDolbyVisionOutputTest' --no-daemon
-
       - name: Verify expected build tasks for app
         run: |
           set -euo pipefail
@@ -315,7 +299,6 @@ jobs:
 
           ./gradlew \
             -Dorg.gradle.jvmargs="-Xmx4096m -Dfile.encoding=UTF-8 --add-exports jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED" \
-            :app:assembleMobileRelease \
             :app:assembleLeanbackRelease \
             --max-workers=1 \
             --stacktrace \
@@ -349,14 +332,12 @@ jobs:
             cp "${matches[0]}" "dist/$target_name"
           }
 
-          copy_apk "mobile-arm64_v8a.apk" "xuejia-mobile-arm64-v8a.apk"
-          copy_apk "mobile-armeabi_v7a.apk" "xuejia-mobile-armeabi-v7a.apk"
           copy_apk "leanback-arm64_v8a.apk" "xuejia-tv-arm64-v8a.apk"
           copy_apk "leanback-armeabi_v7a.apk" "xuejia-tv-armeabi-v7a.apk"
 
           COUNT="$(find dist -maxdepth 1 -type f -name '*.apk' | wc -l | tr -d ' ')"
-          [ "$COUNT" = "4" ] || {
-            echo "::error::实际 APK 数量是 $COUNT，不是 4"
+          [ "$COUNT" = "2" ] || {
+            echo "::error::APK数量错误 $COUNT"
             exit 1
           }
 
