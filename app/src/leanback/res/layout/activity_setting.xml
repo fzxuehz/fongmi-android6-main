@@ -226,7 +226,7 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
 <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="+id/liveCloud"
+            android:id="@+id/liveCloud"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
