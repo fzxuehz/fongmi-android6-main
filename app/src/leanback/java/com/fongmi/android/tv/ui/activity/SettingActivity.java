@@ -29,6 +29,7 @@ import com.fongmi.android.tv.impl.UpdateProxyListener;
 import com.fongmi.android.tv.setting.PlayerSetting;
 import com.fongmi.android.tv.setting.Setting;
 import com.fongmi.android.tv.ui.base.BaseActivity;
+import com.fongmi.android.tv.ui.dialog.CloudSourceDialog;
 import com.fongmi.android.tv.ui.dialog.ConfigDialog;
 import com.fongmi.android.tv.ui.dialog.UpdateProxyDialog;
 import com.fongmi.android.tv.ui.dialog.DohDialog;
@@ -125,6 +126,8 @@ public class SettingActivity extends BaseActivity implements ConfigListener, Sit
         mBinding.wallDefault.setOnClickListener(this::setWallDefault);
         mBinding.wallRefresh.setOnClickListener(this::setWallRefresh);
         mBinding.wallRefresh.setOnLongClickListener(this::onWallHistory);
+        mBinding.cloudSource.setOnClickListener(this::onCloudSource);
+        mBinding.scanAdd.setOnClickListener(this::onScanAdd);
     }
 
     @Override
@@ -225,6 +228,14 @@ public class SettingActivity extends BaseActivity implements ConfigListener, Sit
 
     private void onLiveHistory(View view) {
         HistoryDialog.create().live().show(this);
+    }
+
+    private void onCloudSource(View view) {
+        CloudSourceDialog.create().show(this);
+    }
+
+    private void onScanAdd(View view) {
+        PushActivity.start(this);
     }
 
     private void onPlayer(View view) {
