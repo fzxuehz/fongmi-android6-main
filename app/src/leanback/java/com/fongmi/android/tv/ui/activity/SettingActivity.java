@@ -127,7 +127,8 @@ public class SettingActivity extends BaseActivity implements ConfigListener, Sit
         mBinding.wallDefault.setOnClickListener(this::setWallDefault);
         mBinding.wallRefresh.setOnClickListener(this::setWallRefresh);
         mBinding.wallRefresh.setOnLongClickListener(this::onWallHistory);
-        mBinding.cloudSource.setOnClickListener(this::onCloudSource);`n        mBinding.liveCloud.setOnClickListener(this::onLiveCloud);
+        mBinding.cloudSource.setOnClickListener(this::onCloudSource);
+        mBinding.liveCloud.setOnClickListener(this::onLiveCloud);
         mBinding.scanAdd.setOnClickListener(this::onScanAdd);
     }
 
