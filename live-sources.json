@@ -1,14 +1,16 @@
 {
   "updated": "2026-11-21",
-  "note": "直播源清单。检测标准：能拉到m3u/txt文件+含频道条目=有效；国内专用线海外检测失败属正常。",
   "sources": [
-    { "name": "YueChan-IPTV", "id": "yuechan_iptv", "url": "https://raw.githubusercontent.com/YueChan/Live/refs/heads/main/IPTV.m3u", "desc": "国内频道·约100台·国内外通用", "zone": "both" },
+    { "name": "YueChan-IPTV", "id": "yuechan_iptv", "url": "https://raw.githubusercontent.com/YueChan/Live/refs/heads/main/IPTV.m3u", "desc": "国内频道约100台", "zone": "github" },
     { "name": "YueChan-APTV", "id": "yuechan_aptv", "url": "https://raw.githubusercontent.com/YueChan/Live/refs/heads/main/APTV.m3u", "desc": "国内频道85个", "zone": "github" },
     { "name": "YueChan-Global", "id": "yuechan_global", "url": "https://raw.githubusercontent.com/YueChan/Live/refs/heads/main/Global.m3u", "desc": "国际频道50个", "zone": "github" },
     { "name": "YueChan-Radio", "id": "yuechan_radio", "url": "https://raw.githubusercontent.com/YueChan/Live/refs/heads/main/Radio.m3u", "desc": "中外广播电台100个", "zone": "github" },
-    { "name": "俊佬-直播", "id": "junlao_live", "url": "http://home.jundie.top:81/top98.json", "desc": "含直播数据(TVBox配置)", "zone": "both" },
-    { "name": "真心-直播", "id": "zhenxin_live", "url": "https://www.252035.xyz/z/FongMi.json", "desc": "含直播数据(TVBox配置)", "zone": "both" },
+    { "name": "俊佬-直播", "id": "junlao_live", "url": "http://home.jundie.top:81/top98.json", "desc": "含直播数据", "zone": "both" },
+    { "name": "真心-直播", "id": "zhenxin_live", "url": "https://www.252035.xyz/z/FongMi.json", "desc": "含直播数据", "zone": "both" },
+    { "name": "dxawi-直播", "id": "dxawi_live", "url": "https://dxawi.github.io/0/0.json", "desc": "含直播数据", "zone": "both" },
     { "name": "饭太硬-直播", "id": "fantaiying_live", "url": "http://www.fantaiying.top/tv", "desc": "含直播数据·国内专用", "zone": "cn" },
-    { "name": "OK佬-直播", "id": "oklao_live", "url": "http://ok321.top/ok", "desc": "含直播数据·国内专用", "zone": "cn" }
+    { "name": "OK佬-直播", "id": "oklao_live", "url": "http://ok321.top/ok", "desc": "含直播数据·国内专用", "zone": "cn" },
+    { "name": "巧记-直播", "id": "qiaoji_live", "url": "http://cdn.qiaoji8.com/tvbox.json", "desc": "含直播数据·国内专用", "zone": "cn" },
+    { "name": "摸鱼-直播", "id": "moyu_live", "url": "http://我不是.摸鱼儿.com", "desc": "含直播数据·国内专用", "zone": "cn" }
   ]
 }
