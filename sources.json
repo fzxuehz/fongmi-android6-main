@@ -1,25 +1,16 @@
 {
-  "updated": "2026-11-21",
-  "note": "15+条源线路。检测环境=使用环境——请在电视端用「云端源库」检测才能得到真实可用性。GitHub系源需要网络能访问GitHub（时通时断属正常），国内线需大陆网络。",
+  "updated": "2026-11-22",
+  "note": "精简版：只保留当前网络实测可达的源。GitHub Pages系需Pages IP可达。",
   "sources": [
     { "name": "真心", "id": "zhenxin", "url": "https://www.252035.xyz/z/FongMi.json", "desc": "国内服务器·推荐首选", "zone": "both" },
-    { "name": "俊佬", "id": "junlao", "url": "http://home.jundie.top:81/top98.json", "desc": "国内服务器·推荐首选", "zone": "both" },
+    { "name": "俊佬", "id": "junlao", "url": "http://home.jundie.top:81/top98.json", "desc": "国内服务器", "zone": "both" },
     { "name": "dxawi", "id": "dxawi", "url": "https://dxawi.github.io/0/0.json", "desc": "GitHub Pages·较稳定", "zone": "both" },
-    { "name": "分享", "id": "fenxiang", "url": "https://raw.githubusercontent.com/maoystv/6/main/000.json", "desc": "GitHub·197站点·需GitHub可达", "zone": "github" },
-    { "name": "分享-镜像", "id": "fenxiang_m", "url": "https://ghproxy.net/https://raw.githubusercontent.com/maoystv/6/main/000.json", "desc": "分享源的国内镜像线路", "zone": "github" },
-    { "name": "香雅情", "id": "xiangyaqing", "url": "https://raw.githubusercontent.com/xyq254245/xyqonlinerule/main/XYQTVBox.json", "desc": "老牌经典·需GitHub可达", "zone": "github" },
-    { "name": "香雅情-镜像", "id": "xiangyaqing_m", "url": "https://ghproxy.net/https://raw.githubusercontent.com/xyq254245/xyqonlinerule/main/XYQTVBox.json", "desc": "香雅情的国内镜像线路", "zone": "github" },
-    { "name": "高天流云", "id": "gaotianliuyun", "url": "https://raw.githubusercontent.com/gaotianliuyun/gao/master/js.json", "desc": "经典老源·需GitHub可达", "zone": "github" },
-    { "name": "高天流云-镜像", "id": "gaotianliuyun_m", "url": "https://ghproxy.net/https://raw.githubusercontent.com/gaotianliuyun/gao/master/js.json", "desc": "高天流云的国内镜像线路", "zone": "github" },
-    { "name": "二哈", "id": "erha", "url": "https://raw.githubusercontent.com/2hacc/TVBox/main/tvbox.json", "desc": "GitHub·需GitHub可达", "zone": "github" },
-    { "name": "饭太硬", "id": "fantaiying", "url": "http://www.fantaiying.top/tv", "desc": "国内社区第一源·域名经常更换", "zone": "cn" },
-    { "name": "肥猫", "id": "feimao", "url": "http://肥猫.net/", "desc": "国内老牌源·域名经常更换", "zone": "cn" },
-    { "name": "OK佬", "id": "oklao", "url": "http://ok321.top/ok", "desc": "国内线路·域名可能更换", "zone": "cn" },
-    { "name": "巧记", "id": "qiaoji", "url": "http://cdn.qiaoji8.com/tvbox.json", "desc": "CDN线路", "zone": "cn" },
-    { "name": "摸鱼", "id": "moyu", "url": "http://我不是.摸鱼儿.com", "desc": "国内老牌源", "zone": "cn" },
-    { "name": "俊佬-完整版", "id": "junlao_full", "url": "http://home.jundie.top:81/Cat/ext.json", "desc": "俊佬的另一份配置", "zone": "both" },
-    { "name": "运输车", "id": "yunshuche", "url": "https://weixine.net/ysc.json", "desc": "备用线路", "zone": "cn" },
-    { "name": "小盒子", "id": "xiaohezi", "url": "http://xhztv.top/xhz", "desc": "备用线路", "zone": "cn" },
-    { "name": "影视仓", "id": "yingshicang", "url": "https://fmbox.cc/", "desc": "备用线路", "zone": "cn" }
+    { "name": "高天流云-GH", "id": "gaotianliuyun_gh", "url": "https://gaotianliuyun.github.io/gao/js.json", "desc": "GitHub Pages·当前可达", "zone": "both" },
+    { "name": "薛家精选", "id": "xuejia", "url": "https://fzxuehz.github.io/fongmi-android6-main/xuejia-select.json", "desc": "自建·真心爬虫引擎+dxawi站点", "zone": "both" },
+    { "name": "分享-raw", "id": "fenxiang_raw", "url": "https://raw.githubusercontent.com/maoystv/6/main/000.json", "desc": "分享源直连·时通时断", "zone": "github" },
+    { "name": "香雅情-raw", "id": "xiangyaqing_raw", "url": "https://raw.githubusercontent.com/xyq254245/xyqonlinerule/main/XYQTVBox.json", "desc": "香雅情直连·时通时断", "zone": "github" },
+    { "name": "高天流云-raw", "id": "gaotianliuyun_raw", "url": "https://raw.githubusercontent.com/gaotianliuyun/gao/master/js.json", "desc": "高天流云直连·时通时断", "zone": "github" },
+    { "name": "分享-GH镜像", "id": "fenxiang_gh", "url": "https://maoystv.github.io/6/000.json", "desc": "分享源Pages镜像·可能可达", "zone": "github" },
+    { "name": "Box-GH镜像", "id": "takagen99_gh", "url": "https://takagen99.github.io/Box/box.json", "desc": "Box项目Pages镜像·可能可达", "zone": "github" }
   ]
 }
